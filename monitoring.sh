@@ -12,7 +12,7 @@ my_useram=$(free -m | awk '/Mem:/ {printf("%i", $3)}')
 
 my_ramper=$(free | awk '/Mem:/ {printf("%.2f%%", $3/$2 * 100)}')
 
-my_disk=$(df -BG)
+my_disk=$(lsblk | grep -w sda | awk '{print $4}')
 
 my_usedisk=$(df -BM --total | grep -w total | awk '{printf("%i", $2 - $4)}')
 
@@ -40,7 +40,7 @@ wall "#Architecture: $my_arch
 #CPU physical : $my_phycpu
 #vCPU : $my_vcpu 
 #Memory Usage: $my_useram/$my_aviram Mb ($my_ramper)
-#Disk Usage: $my_usedisk/$my_disk Gb ($my_diskper%)
+#Disk Usage: $my_usedisk/$my_disk  ($my_diskper%)
 #CPU load: $my_cpuload
 #Last boot: $my_lastboot
 #LVM use: $my_LVM 
